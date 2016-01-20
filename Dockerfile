@@ -7,7 +7,7 @@
 FROM centos:centos6
 
 # File Author / Maintainer
-MAINTAINER Kaushal Kishore <kaushal.rahuljaiswal@gmail.com>
+MAINTAINER Ludo Bermejo <ludobermejo@gmail.com> based on a docker file by kaushal.rahuljaiswal@gmail.com
 
 # Install epel repos
 RUN rpm -Uvh http://dl.fedoraproject.org/pub/epel/6/x86_64/epel-release-6-8.noarch.rpm
