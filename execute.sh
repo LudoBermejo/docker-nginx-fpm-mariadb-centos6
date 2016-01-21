@@ -24,3 +24,4 @@ ps -wef | grep mysql | grep -v grep | awk '{print $2}' | xargs kill -9
 
 mysqld_safe --user mysql
 
+service mysql start
