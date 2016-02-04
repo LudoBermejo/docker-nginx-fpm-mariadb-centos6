@@ -1,27 +1,11 @@
 #!/bin/bash
-# Executing supervisord and mysql_user
-# Author : Kaushal Kishore <kaushal.rahuljaiswal@gmail.com>
+# Author : Ludo Bermejo <LudoBermejo@gmail.com>
 
-#/mysql_user.sh
-#exec supervisord -n
+export TERM=dumb
 
-#!/bin/sh
-service php-fpm start
-service nginx start
+service php-fpm start >> log.txt
+service mysql start >> log.txt
 
-chown -R mysql:mysql /var/lib/mysql
-mysql_install_db --user mysql > /dev/null
+mysql -v < /root/db_source.sql > log.txt
 
-mysqld_safe --user mysql &
-
-sleep 5s
-
-mysql -v < /root/mariadb.sql
-
-sleep 5s
-
-ps -wef | grep mysql | grep -v grep | awk '{print $2}' | xargs kill -9
-
-mysqld_safe --user mysql
-
-service mysql start
+service nginx start >> log.txt

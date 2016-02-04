@@ -1,9 +1,9 @@
 ############################################################
-# Dockerfile to build Centos-LEMP installed  Container
+# Dockerfile to build nginx, mysql and php-fpm
 # Based on CentOS
 ############################################################
 
-# Set the base image to Ubuntu
+# Set the base image to Centos
 FROM centos:centos6
 
 # File Author / Maintainer
@@ -23,6 +23,9 @@ RUN yum update -y
 # MariaDB
 ADD mariadb.repo /etc/yum.repos.d/mariadb.repo
 ADD mariadb.sql /root/mariadb.sql
+
+# IMPORTANT; YOU SHOULD USE THIS ONLY IF YOU HAVE THE SOURCE OF THE SQL YOU WANT TO USE IN THIS DIRECTORY
+ADD database/db_source.sql /root/db_source.sql
 ADD server.cnf /etc/my.cnf.d/server.cnf
 
 RUN yum -y install MariaDB MariaDB-server
@@ -45,7 +48,5 @@ ADD default.conf /etc/nginx/conf.d/default.conf
 ADD execute.sh /execute.sh
 RUN chmod 755 /*.sh
 
-
-
 # Executing supervisord
-CMD ["/execute.sh"]
+CMD ["./execute.sh","-D","FOREGROUND"]
